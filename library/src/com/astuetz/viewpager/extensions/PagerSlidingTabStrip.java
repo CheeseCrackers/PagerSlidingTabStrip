@@ -140,17 +140,17 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 
 		a = context.obtainStyledAttributes(attrs, R.styleable.PagerSlidingTabStrip);
 
-		indicatorColor = a.getColor(R.styleable.PagerSlidingTabStrip_indicatorColor, indicatorColor);
-		underlineColor = a.getColor(R.styleable.PagerSlidingTabStrip_underlineColor, underlineColor);
-		dividerColor = a.getColor(R.styleable.PagerSlidingTabStrip_dividerColor, dividerColor);
-		indicatorHeight = a.getDimensionPixelSize(R.styleable.PagerSlidingTabStrip_indicatorHeight, indicatorHeight);
-		underlineHeight = a.getDimensionPixelSize(R.styleable.PagerSlidingTabStrip_underlineHeight, underlineHeight);
-		dividerPadding = a.getDimensionPixelSize(R.styleable.PagerSlidingTabStrip_dividerPadding, dividerPadding);
-		tabPadding = a.getDimensionPixelSize(R.styleable.PagerSlidingTabStrip_tabPaddingLeftRight, tabPadding);
-		tabBackgroundResId = a.getResourceId(R.styleable.PagerSlidingTabStrip_tabBackground, tabBackgroundResId);
-		shouldExpand = a.getBoolean(R.styleable.PagerSlidingTabStrip_shouldExpand, shouldExpand);
-		scrollOffset = a.getDimensionPixelSize(R.styleable.PagerSlidingTabStrip_scrollOffset, scrollOffset);
-		textAllCaps = a.getBoolean(R.styleable.PagerSlidingTabStrip_textAllCaps, textAllCaps);
+		indicatorColor = a.getColor(R.styleable.PagerSlidingTabStrip_pst_indicatorColor, indicatorColor);
+		underlineColor = a.getColor(R.styleable.PagerSlidingTabStrip_pst_underlineColor, underlineColor);
+		dividerColor = a.getColor(R.styleable.PagerSlidingTabStrip_pst_dividerColor, dividerColor);
+		indicatorHeight = a.getDimensionPixelSize(R.styleable.PagerSlidingTabStrip_pst_indicatorHeight, indicatorHeight);
+		underlineHeight = a.getDimensionPixelSize(R.styleable.PagerSlidingTabStrip_pst_underlineHeight, underlineHeight);
+		dividerPadding = a.getDimensionPixelSize(R.styleable.PagerSlidingTabStrip_pst_dividerPadding, dividerPadding);
+		tabPadding = a.getDimensionPixelSize(R.styleable.PagerSlidingTabStrip_pst_tabPaddingLeftRight, tabPadding);
+		tabBackgroundResId = a.getResourceId(R.styleable.PagerSlidingTabStrip_pst_tabBackground, tabBackgroundResId);
+		shouldExpand = a.getBoolean(R.styleable.PagerSlidingTabStrip_pst_shouldExpand, shouldExpand);
+		scrollOffset = a.getDimensionPixelSize(R.styleable.PagerSlidingTabStrip_pst_scrollOffset, scrollOffset);
+		textAllCaps = a.getBoolean(R.styleable.PagerSlidingTabStrip_pst_textAllCaps, textAllCaps);
 
 		a.recycle();
 
@@ -396,7 +396,8 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 			currentPosition = position;
 			currentPositionOffset = positionOffset;
 
-			scrollToChild(position, (int) (positionOffset * tabsContainer.getChildAt(position).getWidth()));
+			View child = tabsContainer.getChildAt(position);
+			scrollToChild(position, (int) (positionOffset * child.getWidth()));
 
 			invalidate();
 
