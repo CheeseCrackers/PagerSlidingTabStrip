@@ -18,6 +18,7 @@ package com.astuetz.viewpager.extensions;
 
 import java.util.Locale;
 
+import uk.co.androidalliance.edgeeffectoverride.EdgeEffectHorizontalScrollView;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -36,12 +37,11 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class PagerSlidingTabStrip extends HorizontalScrollView {
+public class PagerSlidingTabStrip extends EdgeEffectHorizontalScrollView {
 
 	public interface IconTabProvider {
 		public int getPageIconResId(int position);
