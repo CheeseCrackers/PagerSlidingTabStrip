@@ -270,12 +270,13 @@ public class PagerSlidingTabStrip extends EdgeEffectHorizontalScrollView {
 
 	private void updateTabStyles() {
 
+		tabsContainer.setBackgroundResource(tabBackgroundResId);
+
 		for (int i = 0; i < tabCount; i++) {
 
 			View v = tabsContainer.getChildAt(i);
 
 			v.setLayoutParams(defaultTabLayoutParams);
-			v.setBackgroundResource(tabBackgroundResId);
 			if (shouldExpand) {
 				v.setPadding(0, 0, 0, 0);
 			} else {
@@ -354,8 +355,8 @@ public class PagerSlidingTabStrip extends EdgeEffectHorizontalScrollView {
 	}
 
 	@Override
-	protected void onDraw(Canvas canvas) {
-		super.onDraw(canvas);
+	protected void dispatchDraw(Canvas canvas){
+		super.dispatchDraw(canvas);
 
 		if (isInEditMode() || tabCount == 0) {
 			return;
