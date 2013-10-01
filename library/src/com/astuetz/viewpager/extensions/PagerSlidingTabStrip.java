@@ -21,6 +21,7 @@ import java.util.Locale;
 import uk.co.androidalliance.edgeeffectoverride.EdgeEffectHorizontalScrollView;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -62,6 +63,7 @@ public class PagerSlidingTabStrip extends EdgeEffectHorizontalScrollView {
 
 	private LinearLayout tabsContainer;
 	private ViewPager pager;
+	private View						selectedView;
 
 	private int tabCount;
 
@@ -89,6 +91,7 @@ public class PagerSlidingTabStrip extends EdgeEffectHorizontalScrollView {
 
 	private int tabTextSize = 12;
 	private int tabTextColor = 0xFF666666;
+	private ColorStateList				tabTextColorStateList;
 	private Typeface tabTypeface = null;
 	private int tabTypefaceStyle = Typeface.BOLD;
 
@@ -199,7 +202,6 @@ public class PagerSlidingTabStrip extends EdgeEffectHorizontalScrollView {
 			} else {
 				addTextTab(i, pager.getAdapter().getPageTitle(i).toString());
 			}
-
 		}
 
 		updateTabStyles();
@@ -220,13 +222,18 @@ public class PagerSlidingTabStrip extends EdgeEffectHorizontalScrollView {
 				}
 
 				currentPosition = pager.getCurrentItem();
+				selectedView = tabsContainer.getChildAt(currentPosition);
+				if(selectedView != null) {
+					selectedView.setSelected(true);
+				}
+
 				scrollToChild(currentPosition, 0);
 			}
 		});
 
 	}
 
-	private void addTextTab(final int position, String title) {
+	private void addTextTab(final int position, String title){
 
 		TextView tab = new TextView(getContext());
 		tab.setText(title);
@@ -242,7 +249,6 @@ public class PagerSlidingTabStrip extends EdgeEffectHorizontalScrollView {
 		});
 
 		tabsContainer.addView(tab);
-
 	}
 
 	private void addIconTab(final int position, int resId) {
@@ -281,7 +287,12 @@ public class PagerSlidingTabStrip extends EdgeEffectHorizontalScrollView {
 				TextView tab = (TextView) v;
 				tab.setTextSize(TypedValue.COMPLEX_UNIT_PX, tabTextSize);
 				tab.setTypeface(tabTypeface, tabTypefaceStyle);
-				tab.setTextColor(tabTextColor);
+
+				if(tabTextColorStateList != null) {
+					tab.setTextColor(tabTextColorStateList);
+				} else {
+					tab.setTextColor(tabTextColor);
+				}
 
 				// setAllCaps() is only available from API 14, so the upper case is made manually if we are on a
 				// pre-ICS-build
@@ -419,6 +430,13 @@ public class PagerSlidingTabStrip extends EdgeEffectHorizontalScrollView {
 
 		@Override
 		public void onPageSelected(int position) {
+			if(selectedView != null) {
+				selectedView.setSelected(false);
+			}
+
+			selectedView = tabsContainer.getChildAt(position);
+			selectedView.setSelected(true);
+
 			if (delegatePageListener != null) {
 				delegatePageListener.onPageSelected(position);
 			}
@@ -532,11 +550,12 @@ public class PagerSlidingTabStrip extends EdgeEffectHorizontalScrollView {
 
 	public void setTextColor(int textColor) {
 		this.tabTextColor = textColor;
+		this.tabTextColorStateList = null;
 		updateTabStyles();
 	}
 
 	public void setTextColorResource(int resId) {
-		this.tabTextColor = getResources().getColor(resId);
+		this.tabTextColorStateList = getResources().getColorStateList(resId);
 		updateTabStyles();
 	}
 
