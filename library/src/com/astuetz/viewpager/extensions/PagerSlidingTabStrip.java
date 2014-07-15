@@ -559,6 +559,11 @@ public class PagerSlidingTabStrip extends EdgeEffectHorizontalScrollView {
 		this.tabTextColorStateList = getResources().getColorStateList(resId);
 		updateTabStyles();
 	}
+	
+	public void setTextColorStateList(ColorStateList colorStateList){
+		this.tabTextColorStateList = colorStateList;
+		updateTabStyles();
+	}
 
 	public int getTextColor() {
 		return tabTextColor;
